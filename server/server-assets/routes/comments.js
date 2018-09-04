@@ -25,7 +25,7 @@ router.post('/', (req, res, next) => {
 
 router.delete('/:commentId', (req, res, next) => {
     Comments.findByIdAndRemove(req.params.commentId)
-    .then(res => res.send({
+    .then(() => res.send({
         message: 'Deleted!'
     }))
 })

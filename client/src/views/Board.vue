@@ -40,7 +40,6 @@ export default {
       return this.boardId;
     },
     lists() {
-      console.log('you are getting the list from state')
       return this.$store.state.lists;
     }
   },
