@@ -4,7 +4,9 @@
      <input type="text" required v-model="listTitle">
 
    </form>
-   {{lists}}
+   <div v-for="(value, key) in lists" :key="key">
+     {{value.title}}
+   </div>
   </div>
 </template>
 
@@ -16,7 +18,6 @@ export default {
       listTitle: ""
     };
   },
-
   methods: {
     addList() {
       let obj = {
@@ -31,6 +32,7 @@ export default {
       return this.boardId;
     },
     lists() {
+      console.log('you are getting the list from state')
       return this.$store.state.lists;
     }
   },

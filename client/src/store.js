@@ -33,7 +33,8 @@ export default new Vuex.Store({
     },
 
     addList(state, list){
-      state.lists[list._id] = list
+      // state.lists[list._id] = list
+      Vue.set(state.lists, list._id, list)
     },
     addListsToState(state, listArr){
       let listObj = {}
@@ -97,6 +98,7 @@ export default new Vuex.Store({
     addList({commit, dispatch}, obj){
       api.post('/lists', obj)
       .then(res => {
+        console.log(res)
         commit('addList', res.data)
         
       })
