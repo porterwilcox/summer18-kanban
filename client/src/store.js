@@ -12,7 +12,7 @@ let auth = Axios.create({
 })
 
 let api = Axios.create({
-  baseURL: "//localhost:3000/api/",
+  baseURL: "//localhost:3000/api",
   timeout: 3000,
   withCredentials: true
 })
@@ -72,6 +72,13 @@ export default new Vuex.Store({
       api.delete('boards/' + boardId)
         .then(res => {
           dispatch('getBoards')
+        })
+    },
+    //LISTS
+    getLists({commit, dispatch}, boardId){
+      api.get(`lists/${boardId}`)
+        .then(res => {
+          console.log(res)
         })
     }
 
