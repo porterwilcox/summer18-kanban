@@ -1,17 +1,31 @@
 <template>
   <div class="board">
-    {{boardId}}
+   <form @submit.prevent="addList">
+     <input type="text" required v-model="listTitle">
+
+   </form>
   </div>
 </template>
 
 <script>
 export default {
   name: "board",
-  // data(){
-  //   return{
-  //     boardId: boardId
-  //   }
-  // },
+  data(){
+    return{
+      listTitle: ''
+    }
+  },
+
+  methods:{
+  addList(){
+    let obj = {
+      title: this.listTitle,
+      boardId: this.theBoardId
+    }
+    this.$store.dispatch('addList', obj)
+  }
+
+  },
   computed: {
     theBoardId(){
       return this.boardId
