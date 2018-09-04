@@ -12,4 +12,4 @@ router.get('/:boardId', (req, res, next) => {
     })
 })
 
-
+module.exports = router

@@ -9,12 +9,12 @@ let loginError = new Error('Bad Email or Password')
 
 //CREATE A NEW USER
 router.post('/auth/register', (req, res) => {
-  //VALIDATE PASSWORD LENGTH
-  if (req.body.password.length < 5) {
-    return res.status(400).send({
-      error: 'Password must be at least 6 characters'
-    })
-  }
+  // //VALIDATE PASSWORD LENGTH
+  // if (req.body.password.length < 5) {
+  //   return res.status(400).send({
+  //     error: 'Password must be at least 6 characters'
+  //   })
+  // }
   //CHANGE THE PASSWORD TO A HASHED PASSWORD
   req.body.password = Users.generateHash(req.body.password)
   //CREATE THE USER
