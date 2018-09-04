@@ -42,7 +42,12 @@ export default new Vuex.Store({
         listObj[list._id] = list
       });
       state.lists = listObj
+    },
+    deleteList(state, listId){
+      Vue.delete(state.lists, listId)
+      
     }
+
   },
   actions: {
     //AUTH STUFF
@@ -101,6 +106,13 @@ export default new Vuex.Store({
         console.log(res)
         commit('addList', res.data)
         
+      })
+    },
+
+    deleteList({commit, dispatch}, listId){
+      api.delete(`/lists/${listId}`)
+      .then(res => {
+        commit('deleteList', listId)
       })
     }
 

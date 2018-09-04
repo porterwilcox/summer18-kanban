@@ -5,7 +5,11 @@
 
    </form>
    <div v-for="(value, key) in lists" :key="key">
+     <h1>
      {{value.title}}
+     </h1>
+    <button @click="deleteList(value._id)">Delete</button>
+     
    </div>
   </div>
 </template>
@@ -25,6 +29,10 @@ export default {
         boardId: this.theBoardId
       };
       this.$store.dispatch("addList", obj);
+    },
+
+    deleteList(listId){
+   this.$store.dispatch("deleteList", listId);
     }
   },
   computed: {
