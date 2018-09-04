@@ -4,6 +4,7 @@
      <input type="text" required v-model="listTitle">
 
    </form>
+   {{lists}}
   </div>
 </template>
 
@@ -29,6 +30,10 @@ export default {
   computed: {
     theBoardId(){
       return this.boardId
+    },
+    lists(){
+      let filtered = this.$store.state.lists.filter(l => l.boardId == this.theBoardId)
+      return filtered
     }
   },
   created() {
