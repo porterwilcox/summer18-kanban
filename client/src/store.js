@@ -101,7 +101,6 @@ export default new Vuex.Store({
     addList({commit, dispatch}, obj){
       api.post('/lists', obj)
       .then(res => {
-        console.log(res)
         commit('addList', res.data)
         
       })
@@ -110,7 +109,6 @@ export default new Vuex.Store({
     deleteList({commit, dispatch}, listId){
       api.delete(`lists/${listId}`)
       .then(res => {
-        console.log(res)
         commit('deleteList', listId)
       })
     }
