@@ -22,7 +22,7 @@ export default new Vuex.Store({
     user: {},
     boards: [],
     activeBoard: {},
-    lists: []
+    lists: {}
   },
   mutations: {
     setUser(state, user) {
@@ -33,7 +33,14 @@ export default new Vuex.Store({
     },
 
     addList(state, list){
-    state.lists.push(list)
+      state.lists[list._id] = list
+    },
+    addListsToState(state, listArr){
+      let listObj = {}
+      listArr.forEach(list => {
+        listObj[list._id] = list
+      });
+      state.lists = listObj
     }
   },
   actions: {
@@ -81,9 +88,10 @@ export default new Vuex.Store({
     },
     //LISTS
     getLists({commit, dispatch}, boardId){
+      // board/:boardId/lists
       api.get(`lists/${boardId}`)
         .then(res => {
-          console.log(res)
+          commit('addListsToState', res.data)
         })
     },
     addList({commit, dispatch}, obj){

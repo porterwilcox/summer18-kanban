@@ -11,29 +11,27 @@
 <script>
 export default {
   name: "board",
-  data(){
-    return{
-      listTitle: ''
-    }
+  data() {
+    return {
+      listTitle: ""
+    };
   },
 
-  methods:{
-  addList(){
-    let obj = {
-      title: this.listTitle,
-      boardId: this.theBoardId
+  methods: {
+    addList() {
+      let obj = {
+        title: this.listTitle,
+        boardId: this.theBoardId
+      };
+      this.$store.dispatch("addList", obj);
     }
-    this.$store.dispatch('addList', obj)
-  }
-
   },
   computed: {
-    theBoardId(){
-      return this.boardId
+    theBoardId() {
+      return this.boardId;
     },
-    lists(){
-      let filtered = this.$store.state.lists.filter(l => l.boardId == this.theBoardId)
-      return filtered
+    lists() {
+      return this.$store.state.lists;
     }
   },
   created() {
@@ -42,10 +40,8 @@ export default {
       this.$router.push({ name: "login" });
     }
   },
-  mounted(){
-    if(!this.lists){
-      this.$store.dispatch('getLists', this.theBoardId)
-    }
+  mounted() {
+    this.$store.dispatch("getLists", this.theBoardId);
   },
   props: ["boardId"]
 };
