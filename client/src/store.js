@@ -156,6 +156,16 @@ export default new Vuex.Store({
         .then(res => {
           commit('addCommentsToState', { taskId, comments: res.data })
         })
+    },
+    deleteComment({dispatch, commit}, obj){
+      api.delete(`/comments/${obj.commentId}`)
+      .then(() =>{
+        api.get(`/tasks/${obj.taskId}/comments`)
+            .then(res => {
+              commit('addCommentsToState', { taskId: obj.taskId, comments: res.data })
+            })
+
+      })
     }
   }
 })

@@ -16,6 +16,7 @@
       <div v-for="comment in value" :key="comment._id" v-if="comment.taskId == taskData._id">
         <h5>{{comment.description}}</h5>
         <p>{{ comment.timestamp | moment("h:mma") }}</p>
+        <button @click="deleteComment(comment._id)">Delete Comment</button>
       </div>
     </div>
     <button @click="deleteTask">delete task</button>
@@ -56,7 +57,15 @@ export default {
       this.$store.dispatch("addComment", obj);
       this.commentDescription = "";
       this.showCommentForm = false;
+    },
+    deleteComment(commentId){
+      let obj = {
+        commentId,
+        taskId: this.taskData._id
+      }
+      this.$store.dispatch('deleteComment', obj)
     }
+
   },
   mounted() {
     this.$store.dispatch("getComments", this.taskData._id);
