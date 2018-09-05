@@ -32,14 +32,7 @@ export default new Vuex.Store({
     setBoards(state, boards) {
       state.boards = boards
     },
-
-    addTasksToState(state, payload) {
-      Vue.set(state.tasks, payload.listId, payload.tasks)
-      // state.tasks[payload.listId] = payload.tasks
-    },
-
     addList(state, list) {
-      // state.lists[list._id] = list
       Vue.set(state.lists, list._id, list)
     },
     addListsToState(state, listArr) {
@@ -52,9 +45,9 @@ export default new Vuex.Store({
     deleteList(state, listId) {
       Vue.delete(state.lists, listId)
     },
-    addTask(state, task) {
-      Vue.set(state.tasks, task._id, task)
-    }
+    addTasksToState(state, payload) {
+      Vue.set(state.tasks, payload.listId, payload.tasks)
+    },
   },
   actions: {
     //AUTH STUFF
@@ -113,16 +106,13 @@ export default new Vuex.Store({
 
         })
     },
-
     deleteList({ commit, dispatch }, listId) {
       api.delete(`lists/${listId}`)
         .then(res => {
           commit('deleteList', listId)
         })
     },
-
     //TASKS
-
     addTask({ commit, dispatch }, obj) {
       api.post('/tasks', obj)
         .then(() => {
@@ -137,8 +127,15 @@ export default new Vuex.Store({
         .then(res => {
           commit('addTasksToState', { listId, tasks: res.data })
         })
+    },
+    deleteTask({dispatch, commit}, obj){
+      api.delete(`/tasks/${obj.taskId}`)
+      .then(() => {
+        api.get(`/lists/${obj.listId}/tasks`)
+          .then(res => {
+            commit('addTasksToState', { listId: obj.listId, tasks: res.data })
+          })
+      })
     }
-
-
   }
 })

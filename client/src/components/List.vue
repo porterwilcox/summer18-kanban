@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    {{listData.title}}
+    <h2>{{listData.title}}</h2>
     <button @click="deleteList">Delete</button>
     <form @submit.prevent="addTask">
       <input type="text" required v-model="taskTitle">
@@ -58,6 +58,7 @@ export default {
 
 <style scoped>
 .list {
+  color: black;
   background-color: blue;
 }
 </style>
