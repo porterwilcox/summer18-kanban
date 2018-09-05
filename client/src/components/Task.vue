@@ -1,7 +1,7 @@
 <template>
 <div class="task">
   <h3>{{taskData.title}}</h3>
-  <p>{{ taskData.timestamp | moment("ddd, hA") }}</p>
+  <p>{{ taskData.timestamp | moment("ddd, h:mma") }}</p>
   <input type="checkbox">
   <button @click="deleteTask">delete task</button>
 </div>

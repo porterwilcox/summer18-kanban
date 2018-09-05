@@ -45,7 +45,8 @@ export default {
     addTask() {
       let obj = {
         title: this.taskTitle,
-        listId: this.listData._id
+        listId: this.listData._id,
+        timestamp: Date.now() 
       };
       this.$store.dispatch("addTask", obj);
     }

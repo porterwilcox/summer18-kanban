@@ -6,7 +6,7 @@ let schemaName = 'Task'
 let schema = new Schema({
     title: {type: String, required: true},
     listId: {type: ObjectId, ref: 'List', required: true},
-    timestamp: {type: Number, required: true, default: Date.now()},
+    timestamp: {type: Number, required: true},
     completed: {type: Boolean, default: false, required: true}
 })
 
