@@ -1,57 +1,39 @@
 <template>
-<div>
-     <form @submit.prevent="addList">
-      <input type="text" required v-model="listTitle">
-   </form>
-     <div v-for="(value, key) in lists" :key="key">
-     <h1>
-     {{value.title}}
-     </h1>
-    <button @click="deleteList(value._id)">Delete</button>
-    <tasks v-bind:listId="value._id" />
-     </div>
-     <div>{{boardId}}</div>
-</div>
+  <div>
+    {{listData.title}}
+    <button @click="deleteList">Delete</button>
+    <div v-for="task in tasks" :key="task._id">
+      <task v-bind:taskData="task" />  
+    </div>
+  </div>
 </template>
 
 <script>
-import Tasks from '@/components/Task'
+  import Task from '@/components/Task'
 
-export default {
-  name: "List",
-  data() {
-    return {
-      listTitle: ""
-    };
-  },
-  props: ["boardId"],
-  computed: {
-    lists() {
-      return this.$store.state.lists;
+  export default {
+    name: "List",
+    props: ["listData"],
+    computed: {
+      lists() {
+        return this.$store.state.lists;
+      },
+      theBoardId() {
+        return this.boardId;
+      },
+      tasks() {
+        return this.$store.state.tasks
+      }
     },
-    theBoardId() {
-      return this.boardId;
-    }
-  },
-  components:{
-    Tasks
-  },
-  methods: {
-    addList() {
-      let obj = {
-        title: this.listTitle,
-        boardId: this.theBoardId
-      };
-      this.$store.dispatch("addList", obj);
+    components: {
+      Task
     },
-    deleteList(listId) {
-      this.$store.dispatch("deleteList", listId);
+    methods: {
+      deleteList() {
+        this.$store.dispatch("deleteList", this.listData._id);
+      }
     }
-  },
-  mounted() {
-    this.$store.dispatch("getLists", this.theBoardId);
-  }
-};
+  };
 </script>
 
 <style scoped>
