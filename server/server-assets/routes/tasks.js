@@ -1,7 +1,7 @@
 let router = require('express').Router()
 let Tasks = require('../models/task')
 
-router.get('/:listId', (req, res, next) => {
+router.get('/lists/:listId/tasks', (req, res, next) => {
     Tasks.find({ listId: req.params.listId })
         .then(tasks => {
             res.send(tasks)
@@ -12,10 +12,10 @@ router.get('/:listId', (req, res, next) => {
         })
 })
 
-router.post('/', (req, res, next) => {
+router.post('/tasks', (req, res, next) => {
     Tasks.create(req.body)
         .then(tasks => {
-            res.send(lists)
+            res.send(tasks)
         })
         .catch(err => {
             console.log(err)
@@ -23,7 +23,7 @@ router.post('/', (req, res, next) => {
         })
 })
 
-router.delete('/:taskId', (req, res, next) => {
+router.delete('/tasks/:taskId', (req, res, next) => {
     Tasks.findByIdAndRemove(req.params.taskId)
     .then(() => res.send({
         message: 'Deleted!'

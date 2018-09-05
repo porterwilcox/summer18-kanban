@@ -48,10 +48,10 @@ let listRoutes = require('./server-assets/routes/lists')
 server.use('/api', listRoutes)
 
 let taskRoutes = require('./server-assets/routes/tasks')
-server.use('api/tasks', taskRoutes)
+server.use('/api', taskRoutes)
 
 let commentRoutes = require('./server-assets/routes/comments')
-server.use('api/comments', commentRoutes)
+server.use('/api/comments', commentRoutes)
 
 
 
