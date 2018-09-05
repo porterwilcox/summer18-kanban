@@ -141,6 +141,21 @@ export default new Vuex.Store({
             })
         })
     },
+    changeList({ dispatch, commit }, obj) {
+      api.put(`/tasks/${obj.taskId}`, obj)
+        .then(() => {
+          api.get(`/lists/${obj.listId}/tasks`)
+            .then(res => {
+              commit('addTasksToState', { listId: obj.listId, tasks: res.data })
+            })
+        })
+        .then(() => {
+          api.get(`/lists/${obj.oldList}/tasks`)
+            .then(res => {
+              commit('addTasksToState', { listId: obj.listId, tasks: res.data })
+            })
+        })
+    },
     //COMMENTS
     addComment({ dispatch, commit }, obj) {
       api.post('/comments', obj)
@@ -157,15 +172,14 @@ export default new Vuex.Store({
           commit('addCommentsToState', { taskId, comments: res.data })
         })
     },
-    deleteComment({dispatch, commit}, obj){
+    deleteComment({ dispatch, commit }, obj) {
       api.delete(`/comments/${obj.commentId}`)
-      .then(() =>{
-        api.get(`/tasks/${obj.taskId}/comments`)
+        .then(() => {
+          api.get(`/tasks/${obj.taskId}/comments`)
             .then(res => {
               commit('addCommentsToState', { taskId: obj.taskId, comments: res.data })
             })
-
-      })
+        })
     }
   }
 })

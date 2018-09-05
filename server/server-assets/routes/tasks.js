@@ -22,12 +22,22 @@ router.post('/tasks', (req, res, next) => {
             next()
         })
 })
+router.put('/tasks/:taskId', (req, res, next) => {
+    Tasks.findByIdAndUpdate(req.params.taskId, req.body)
+        .then(() => res.send({
+            message: 'Task moved!'
+        }))
+        .catch(err => {
+            console.log(err)
+            next()
+        })
+})
 
 router.delete('/tasks/:taskId', (req, res, next) => {
     Tasks.findByIdAndRemove(req.params.taskId)
-    .then(() => res.send({
-        message: 'Deleted!'
-    }))
+        .then(() => res.send({
+            message: 'Deleted!'
+        }))
 })
 
 module.exports = router

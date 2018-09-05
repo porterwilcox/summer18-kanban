@@ -1,6 +1,10 @@
 <template>
   <div class="task">
     <h3>{{taskData.title}}</h3>
+    <select @change="changeList">
+      <option selected disabled>move to a new list</option>
+      <option v-for="(value, key) in lists" :key="key" :value="key" v-if="value._id != taskData.listId">{{value.title}}</option>
+    </select>
     <p>{{ taskData.timestamp | moment("ddd, h:mma") }}</p>
     <div>
       <div v-if="!showCommentForm">
@@ -39,6 +43,9 @@ export default {
     },
     comments() {
       return this.$store.state.comments;
+    },
+    lists() {
+      return this.$store.state.lists;
     }
   },
   methods: {
@@ -58,14 +65,22 @@ export default {
       this.commentDescription = "";
       this.showCommentForm = false;
     },
-    deleteComment(commentId){
+    deleteComment(commentId) {
       let obj = {
         commentId,
         taskId: this.taskData._id
+      };
+      this.$store.dispatch("deleteComment", obj);
+    },
+    changeList(e){
+      let obj = {
+        listId: e.target.value,
+        oldList: this.taskData.listId,
+        taskId: this.taskData._id
       }
-      this.$store.dispatch('deleteComment', obj)
+      console.log(obj)
+      this.$store.dispatch('changeList', obj)
     }
-
   },
   mounted() {
     this.$store.dispatch("getComments", this.taskData._id);
