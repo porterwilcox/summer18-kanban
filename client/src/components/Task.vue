@@ -12,9 +12,10 @@
         </form>
       </div>
     </div>
-    <div v-for="(value, key) in comments" :key="key">
+    <div v-for="(value, key) in comments" :key="key" class="comments">
       <div v-for="comment in value" :key="comment._id" v-if="comment.taskId == taskData._id">
-        {{comment.description}}
+        <h5>{{comment.description}}</h5>
+        <p>{{ comment.timestamp | moment("h:mma") }}</p>
       </div>
     </div>
     <button @click="deleteTask">delete task</button>
@@ -22,53 +23,55 @@
 </template>
 
 <script>
-  export default {
-    name: "task",
-    props: ["taskData"],
-    data() {
-      return {
-        showCommentForm: false,
-        commentDescription: ""
-      };
+export default {
+  name: "task",
+  props: ["taskData"],
+  data() {
+    return {
+      showCommentForm: false,
+      commentDescription: ""
+    };
+  },
+  computed: {
+    tasks() {
+      return this.$store.state.tasks[this.taskData.listId];
     },
-    computed: {
-      tasks() {
-        return this.$store.state.tasks[this.taskData.listId];
-      },
-      comments() {
-        return this.$store.state.comments;
-      }
-    },
-    methods: {
-      deleteTask() {
-        this.$store.dispatch("deleteTask", {
-          taskId: this.taskData._id,
-          listId: this.taskData.listId
-        });
-      },
-      addComment() {
-        let obj = {
-          description: this.commentDescription,
-          taskId: this.taskData._id,
-          timestamp: Date.now()
-        };
-        this.$store.dispatch("addComment", obj);
-        this.commentDescription = "";
-        this.showCommentForm = false;
-      }
-    },
-    mounted() {
-      this.$store.dispatch("getComments", this.taskData._id);
+    comments() {
+      return this.$store.state.comments;
     }
-  };
+  },
+  methods: {
+    deleteTask() {
+      this.$store.dispatch("deleteTask", {
+        taskId: this.taskData._id,
+        listId: this.taskData.listId
+      });
+    },
+    addComment() {
+      let obj = {
+        description: this.commentDescription,
+        taskId: this.taskData._id,
+        timestamp: Date.now()
+      };
+      this.$store.dispatch("addComment", obj);
+      this.commentDescription = "";
+      this.showCommentForm = false;
+    }
+  },
+  mounted() {
+    this.$store.dispatch("getComments", this.taskData._id);
+  }
+};
 </script>
 
 <style>
-  .task {
-    background-color: red;
-  }
-
-  p {
-    cursor: pointer;
-  }
+.task {
+  background-color: #e7d5be;
+}
+.comments {
+  background-color: #f4f0f0;
+}
+p {
+  cursor: pointer;
+}
 </style>

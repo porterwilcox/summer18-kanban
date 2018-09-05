@@ -60,6 +60,6 @@ export default {
 <style scoped>
 .list {
   color: black;
-  background-color: blue;
+  background-color: #485fb0;
 }
 </style>
