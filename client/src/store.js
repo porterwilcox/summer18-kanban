@@ -37,6 +37,7 @@ export default new Vuex.Store({
       let taskObj = {}
       taskArr.forEach(task=> {
         taskObj[task._id] = task
+        
       })
       state.tasks =  taskObj
     },
