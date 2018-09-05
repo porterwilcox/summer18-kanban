@@ -152,7 +152,7 @@ export default new Vuex.Store({
         .then(() => {
           api.get(`/lists/${obj.oldList}/tasks`)
             .then(res => {
-              commit('addTasksToState', { listId: obj.listId, tasks: res.data })
+              commit('addTasksToState', { listId: obj.oldList, tasks: res.data })
             })
         })
     },
