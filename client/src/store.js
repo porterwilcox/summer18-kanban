@@ -23,7 +23,8 @@ export default new Vuex.Store({
     boards: [],
     activeBoard: {},
     lists: {},
-    tasks: {}
+    tasks: {},
+    comments: {}
   },
   mutations: {
     setUser(state, user) {
@@ -48,6 +49,9 @@ export default new Vuex.Store({
     addTasksToState(state, payload) {
       Vue.set(state.tasks, payload.listId, payload.tasks)
     },
+    addCommentsToState(state, payload) {
+      Vue.set(state.comments, payload.taskId, payload.comments)
+    }
   },
   actions: {
     //AUTH STUFF
@@ -128,14 +132,30 @@ export default new Vuex.Store({
           commit('addTasksToState', { listId, tasks: res.data })
         })
     },
-    deleteTask({dispatch, commit}, obj){
+    deleteTask({ dispatch, commit }, obj) {
       api.delete(`/tasks/${obj.taskId}`)
-      .then(() => {
-        api.get(`/lists/${obj.listId}/tasks`)
-          .then(res => {
-            commit('addTasksToState', { listId: obj.listId, tasks: res.data })
-          })
-      })
+        .then(() => {
+          api.get(`/lists/${obj.listId}/tasks`)
+            .then(res => {
+              commit('addTasksToState', { listId: obj.listId, tasks: res.data })
+            })
+        })
+    },
+    //COMMENTS
+    addComment({ dispatch, commit }, obj) {
+      api.post('/comments', obj)
+        .then(() => {
+          api.get(`/tasks/${obj.taskId}/comments`)
+            .then(res => {
+              commit('addCommentsToState', { taskId: obj.taskId, comments: res.data })
+            })
+        })
+    },
+    getComments({ dispatch, commit }, taskId) {
+      api.get(`/tasks/${taskId}/comments`)
+        .then(res => {
+          commit('addCommentsToState', { taskId, comments: res.data })
+        })
     }
   }
 })

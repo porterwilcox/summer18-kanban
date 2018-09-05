@@ -6,7 +6,7 @@ let schemaName = 'Comment'
 let schema = new Schema({
     description: {type: String, required: true},
     taskId: {type: ObjectId, ref: 'Task', required: true},
-    timestamp: {type: Number, required: true, default: Date.now()}
+    timestamp: {type: Number, required: true}
 })
 
 module.exports = mongoose.model(schemaName, schema)

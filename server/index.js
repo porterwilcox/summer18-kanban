@@ -51,7 +51,7 @@ let taskRoutes = require('./server-assets/routes/tasks')
 server.use('/api', taskRoutes)
 
 let commentRoutes = require('./server-assets/routes/comments')
-server.use('/api/comments', commentRoutes)
+server.use('/api', commentRoutes)
 
 
 

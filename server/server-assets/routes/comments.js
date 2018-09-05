@@ -1,7 +1,7 @@
 let router = require('express').Router()
 let Comments = require('../models/comment')
 
-router.get('/:taskId', (req, res, next) => {
+router.get('/tasks/:taskId/comments', (req, res, next) => {
     Comments.find({ taskId: req.params.taskId })
         .then(comments => {
             res.send(comments)
@@ -12,7 +12,7 @@ router.get('/:taskId', (req, res, next) => {
         })
 })
 
-router.post('/', (req, res, next) => {
+router.post('/comments', (req, res, next) => {
     Comments.create(req.body)
     .then(comments => {
         res.send(comments)
@@ -23,7 +23,7 @@ router.post('/', (req, res, next) => {
     })
 })
 
-router.delete('/:commentId', (req, res, next) => {
+router.delete('/comments/:commentId', (req, res, next) => {
     Comments.findByIdAndRemove(req.params.commentId)
     .then(() => res.send({
         message: 'Deleted!'
