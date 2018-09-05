@@ -3,14 +3,7 @@
 <form @submit.prevent="addTask">
     <input type="text" required v-model="taskTitle">
 </form>
-<div v-for="(value, key) in tasks" :key="key">
- <h2>{{value.title}}</h2>
- <p>{{value.timestamp}}</p>
- <input type="checkbox">
-</div>
-
-
-
+{{taskData}}
 </div>
 </template>
 
@@ -22,13 +15,13 @@ export default {
       taskTitle: ""
     };
   },
-  props: ["listId"],
+  props: ["taskData"],
   computed: {
   theListId(){
       return this.listId
   },
   tasks(){
-    return this.$store.state.tasks
+    return this.$store.state.tasks[this.taskData.listId]
   }
   },
   methods: {

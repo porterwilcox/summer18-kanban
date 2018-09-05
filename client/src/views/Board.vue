@@ -1,26 +1,51 @@
 <template>
   <div class="board">
-  <lists v-bind:boardId="theBoardId" />
-   </div>
+    <form @submit.prevent="addList">
+      <input type="text" required v-model="listTitle">
+    </form>
+    <div v-for="list in lists" :key="list._id">
+      <list v-bind:listData="list" />
+    </div>
+  </div>
 </template>
 
 <script>
-import Lists from "@/components/List"
+import List from "@/components/List";
 export default {
   name: "board",
+  data() {
+    return {
+      listTitle: ""
+    };
+  },
   computed: {
     theBoardId() {
       return this.boardId;
+    },
+    lists() {
+      return this.$store.state.lists;
     }
   },
   components: {
-    Lists
+    List
+  },
+  methods: {
+    addList() {
+      let obj = {
+        title: this.listTitle,
+        boardId: this.theBoardId
+      };
+      this.$store.dispatch("addList", obj);
+    }
   },
   created() {
     //blocks users not logged in
     if (!this.$store.state.user._id) {
       this.$router.push({ name: "login" });
     }
+  },
+  mounted() {
+    this.$store.dispatch("getLists", this.theBoardId);
   },
   props: ["boardId"]
 };
