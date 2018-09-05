@@ -8,12 +8,15 @@
      {{value.title}}
      </h1>
     <button @click="deleteList(value._id)">Delete</button>
+    <tasks v-bind:listId="value._id" />
      </div>
      <div>{{boardId}}</div>
 </div>
 </template>
 
 <script>
+import Tasks from '@/components/Task'
+
 export default {
   name: "List",
   data() {
@@ -29,6 +32,9 @@ export default {
     theBoardId() {
       return this.boardId;
     }
+  },
+  components:{
+    Tasks
   },
   methods: {
     addList() {
