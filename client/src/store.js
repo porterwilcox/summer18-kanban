@@ -38,22 +38,22 @@ export default new Vuex.Store({
       // state.tasks[payload.listId] = payload.tasks
     },
 
-    addList(state, list){
+    addList(state, list) {
       // state.lists[list._id] = list
       Vue.set(state.lists, list._id, list)
     },
-    addListsToState(state, listArr){
+    addListsToState(state, listArr) {
       let listObj = {}
       listArr.forEach(list => {
         listObj[list._id] = list
       });
       state.lists = listObj
     },
-    deleteList(state, listId){
+    deleteList(state, listId) {
       Vue.delete(state.lists, listId)
     },
-    addTask(state, task){
-    Vue.set(state.tasks, task._id, task)
+    addTask(state, task) {
+      Vue.set(state.tasks, task._id, task)
     }
   },
   actions: {
@@ -100,41 +100,43 @@ export default new Vuex.Store({
         })
     },
     //LISTS
-    getLists({commit, dispatch}, boardId){
+    getLists({ commit, dispatch }, boardId) {
       api.get(`board/${boardId}/lists`)
         .then(res => {
           commit('addListsToState', res.data)
         })
     },
-    addList({commit, dispatch}, obj){
+    addList({ commit, dispatch }, obj) {
       api.post('/lists', obj)
-      .then(res => {
-        commit('addList', res.data)
-        
-      })
+        .then(res => {
+          commit('addList', res.data)
+
+        })
     },
 
-    deleteList({commit, dispatch}, listId){
+    deleteList({ commit, dispatch }, listId) {
       api.delete(`lists/${listId}`)
-      .then(res => {
-        commit('deleteList', listId)
-      })
+        .then(res => {
+          commit('deleteList', listId)
+        })
     },
 
-  //TASKS
+    //TASKS
 
-    addTask({commit, dispatch}, obj){
+    addTask({ commit, dispatch }, obj) {
       api.post('/tasks', obj)
-      .then(res => {
-        commit('addTask', res.data)
-      })
+        .then(() => {
+          api.get(`/lists/${obj.listId}/tasks`)
+            .then(res => {
+              commit('addTasksToState', { listId: obj.listId, tasks: res.data })
+            })
+        })
     },
-    getTasks({commit, dispatch}, listId){
+    getTasks({ commit, dispatch }, listId) {
       api.get(`/lists/${listId}/tasks`)
-      .then(res => {
-        console.log(res.data)
-        commit('addTasksToState', {listId, tasks: res.data})
-      })
+        .then(res => {
+          commit('addTasksToState', { listId, tasks: res.data })
+        })
     }
 
 
