@@ -38,7 +38,6 @@ export default {
       };
       this.$store.dispatch("addList", obj);
     },
-
     deleteList(listId) {
       this.$store.dispatch("deleteList", listId);
     }
