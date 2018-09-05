@@ -9,31 +9,34 @@
 </template>
 
 <script>
-  import Task from '@/components/Task'
+import Task from "@/components/Task";
 
-  export default {
-    name: "List",
-    props: ["listData"],
-    computed: {
-      lists() {
-        return this.$store.state.lists;
-      },
-      theBoardId() {
-        return this.boardId;
-      },
-      tasks() {
-        return this.$store.state.tasks
-      }
+export default {
+  name: "List",
+  props: ["listData"],
+  computed: {
+    lists() {
+      return this.$store.state.lists;
     },
-    components: {
-      Task
+    theBoardId() {
+      return this.boardId;
     },
-    methods: {
-      deleteList() {
-        this.$store.dispatch("deleteList", this.listData._id);
-      }
+    tasks() {
+      return this.$store.state.tasks;
     }
-  };
+  },
+  components: {
+    Task
+  },
+  methods: {
+    deleteList() {
+      this.$store.dispatch("deleteList", this.listData._id);
+    }
+  },
+  mounted() {
+    this.$store.dispatch("getTasks", this.listData._id);
+  }
+};
 </script>
 
 <style scoped>

@@ -33,27 +33,8 @@ export default new Vuex.Store({
       state.boards = boards
     },
 
-<<<<<<< HEAD
-    addTasksToState(state, taskArr) {
-      let taskObj = {}
-      taskArr.forEach(task=> {
-        taskObj[task._id] = task
-        
-      })
-      state.tasks =  taskObj
-=======
     addTasksToState(state, payload) {
       state.tasks[payload.listId] = payload.tasks
-      // let arr = []
-      // taskArr.forEach(task=> {
-      //   if(state.tasks[task.listId]){
-      //     state.tasks[task.listId] = state.tasks[task.listId].push(task)
-      //   }
-      //   else {
-      //     state.tasks[task.listId] = arr.push(task)
-      //   }
-      // })
->>>>>>> 56458c8ff294c535d345f5a7abf6a0e0be1e972c
     },
 
     addList(state, list){

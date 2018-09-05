@@ -1,9 +1,9 @@
 <template>
 <div class="task">
-<form @submit.prevent="addTask">
-    <input type="text" required v-model="taskTitle">
-</form>
-{{taskData}}
+  <form @submit.prevent="addTask">
+      <input type="text" required v-model="taskTitle">
+  </form>
+  {{taskData}}
 </div>
 </template>
 
@@ -17,13 +17,10 @@ export default {
   },
   props: ["taskData"],
   computed: {
-  theListId(){
-      return this.listId
-  },
   tasks(){
     return this.$store.state.tasks[this.taskData.listId]
   }
-  },
+},
   methods: {
       addTask(){
         let obj = {
@@ -32,9 +29,6 @@ export default {
         }
         this.$store.dispatch('addTask', obj)
       }
-  },
-  mounted(){
-      this.$store.dispatch('getTasks', this.theListId)
   }
 };
 </script>
