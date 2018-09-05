@@ -92,8 +92,7 @@ export default new Vuex.Store({
     },
     //LISTS
     getLists({commit, dispatch}, boardId){
-      // board/:boardId/lists
-      api.get(`lists/${boardId}`)
+      api.get(`board/${boardId}/lists`)
         .then(res => {
           commit('addListsToState', res.data)
         })
