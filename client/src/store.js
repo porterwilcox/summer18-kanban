@@ -33,6 +33,14 @@ export default new Vuex.Store({
       state.boards = boards
     },
 
+    addTasksToState(state, taskArr) {
+      let taskObj = {}
+      taskArr.forEach(task=> {
+        taskObj[task._id] = task
+      })
+      state.tasks =  taskObj
+    },
+
     addList(state, list){
       // state.lists[list._id] = list
       Vue.set(state.lists, list._id, list)
@@ -122,6 +130,12 @@ export default new Vuex.Store({
       api.post('/tasks', obj)
       .then(res => {
         commit('addTask', res.data)
+      })
+    },
+    getTasks({commit, dispatch}, listId){
+      api.get(`/lists/${list.id}/tasks`)
+      .then(res => {
+        commit('addTasksToState', res.data)
       })
     }
 

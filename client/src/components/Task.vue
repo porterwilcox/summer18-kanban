@@ -39,6 +39,9 @@ export default {
         }
         this.$store.dispatch('addTask', obj)
       }
+  },
+  mounted(){
+      this.$store.dispatch('getTasks', this.theListId)
   }
 };
 </script>
