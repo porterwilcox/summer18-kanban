@@ -34,7 +34,8 @@ export default new Vuex.Store({
     },
 
     addTasksToState(state, payload) {
-      state.tasks[payload.listId] = payload.tasks
+      Vue.set(state.tasks, payload.listId, payload.tasks)
+      // state.tasks[payload.listId] = payload.tasks
     },
 
     addList(state, list){

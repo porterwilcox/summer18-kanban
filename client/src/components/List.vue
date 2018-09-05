@@ -1,9 +1,14 @@
 <template>
-  <div>
+  <div class="list">
     {{listData.title}}
     <button @click="deleteList">Delete</button>
-    <div v-for="task in tasks" :key="task._id">
-      <task v-bind:taskData="task" />  
+    <form @submit.prevent="addTask">
+      <input type="text" required v-model="taskTitle">
+    </form>
+    <div v-for="(value, key) in tasks" :key="key">
+      <div v-for="task in value" :key="task._id" v-if="task.listId == listData._id">
+        <task v-bind:taskData="task" />  
+      </div>
     </div>
   </div>
 </template>
@@ -13,6 +18,11 @@ import Task from "@/components/Task";
 
 export default {
   name: "List",
+  data() {
+    return {
+      taskTitle: ""
+    };
+  },
   props: ["listData"],
   computed: {
     lists() {
@@ -31,6 +41,13 @@ export default {
   methods: {
     deleteList() {
       this.$store.dispatch("deleteList", this.listData._id);
+    },
+    addTask() {
+      let obj = {
+        title: this.taskTitle,
+        listId: this.listData._id
+      };
+      this.$store.dispatch("addTask", obj);
     }
   },
   mounted() {
@@ -40,4 +57,7 @@ export default {
 </script>
 
 <style scoped>
+.list {
+  background-color: blue;
+}
 </style>
