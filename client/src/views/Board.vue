@@ -1,14 +1,13 @@
 <template>
-  <div class="board">
-    <navbar />
-    
-    <form @submit.prevent="addList">
-      <input type="text" required v-model="listTitle">
-    </form>
-    <div class="lists" v-for="list in lists" :key="list._id">
-      <list v-bind:listData="list" />
-    </div>
-  </div>
+<v-fluid class="board">
+  <navbar />
+  <form @submit.prevent="addList">
+    <input type="text" required v-model="listTitle">
+  </form>
+  <v-layout class="lists" v-for="list in lists" :key="list._id">
+    <list v-bind:listData="list" />
+  </v-layout>
+</v-fluid>
 </template>
 
 <script>
@@ -64,4 +63,5 @@ navbar {
   flex-flow: wrap row;
   justify-content: space-around;
 }
+
 </style>

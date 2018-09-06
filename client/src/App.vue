@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <router-view/>
-  </div>
+  </v-app>
 </template>
 
 <style>
@@ -22,5 +22,9 @@
 }
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+input {
+  border-left: 1px solid green !important;
+  border-bottom: 1px solid green !important;
 }
 </style>
