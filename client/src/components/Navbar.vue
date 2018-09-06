@@ -1,7 +1,7 @@
 <template>
     <div class="navbar">
-   <router-link :to="{name: 'boards', path: '/'}">Home</router-link>
-   <button @click="logout">Sign Out</button>
+        <router-link :to="{name: 'boards', path: '/'}">Home</router-link>
+        <button @click="logout">Sign Out</button>
     </div>
 </template>
 
@@ -19,13 +19,9 @@ export default {
 
 <style scoped>
 .navbar{
-    
-    
     height: 10vh;
     background-color: #afcfdf;
-    width: 100vw;
-    
-
+    width: 100%;
 }
 </style>
 

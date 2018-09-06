@@ -5,7 +5,7 @@
     <form @submit.prevent="addList">
       <input type="text" required v-model="listTitle">
     </form>
-    <div v-for="list in lists" :key="list._id">
+    <div class="lists" v-for="list in lists" :key="list._id">
       <list v-bind:listData="list" />
     </div>
   </div>
@@ -54,3 +54,14 @@ export default {
   props: ["boardId"]
 };
 </script>
+
+<style>
+navbar {
+  overflow-x: hidden;
+}
+.lists{
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: space-around;
+}
+</style>

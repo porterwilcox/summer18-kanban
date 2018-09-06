@@ -1,6 +1,6 @@
 <template>
-  <div class="task">
-    <h3>{{taskData.title}}</h3>
+  <v-card class="task" title="true" width="25vw">
+    <v-card-title>{{taskData.title}}</v-card-title>
     <select @change="changeList">
       <option selected disabled>move to a new list</option>
       <option v-for="(value, key) in lists" :key="key" :value="key" v-if="value._id != taskData.listId">{{value.title}}</option>
@@ -24,7 +24,7 @@
       </div>
     </div>
     <button @click="deleteTask">delete task</button>
-  </div>
+  </v-card>
 </template>
 
 <script>
