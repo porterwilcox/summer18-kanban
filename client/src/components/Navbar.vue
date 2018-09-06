@@ -18,14 +18,10 @@ export default {
 </script>
 
 <style scoped>
-.navbar{
-    
-    
+.navbar{    
     height: 10vh;
     background-color: #afcfdf;
-    width: 100vw;
-    
-
+    width: 100%;
 }
 </style>
 
