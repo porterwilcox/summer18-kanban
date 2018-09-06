@@ -1,18 +1,16 @@
 <template>
-  <v-flex d-{flex} justify-space-around (size)(sm-4)>
-    <v-card class="list" width="fit-content" color="#485fb0">
-      <h2>{{listData.title}}</h2>
-      <button @click="deleteList">Delete</button>
-      <form @submit.prevent="addTask">
-        <input type="text" required v-model="taskTitle">
-      </form>
-      <div v-for="(value, key) in tasks" :key="key">
-        <div v-for="task in value" :key="task._id" v-if="task.listId == listData._id">
-          <task v-bind:taskData="task" />  
-        </div>
-      </div>
-    </v-card>
-  </v-flex>
+<v-card width="fit-content" color="#485fb0">
+  <h2>{{listData.title}}</h2>
+  <button @click="deleteList">Delete</button>
+  <form @submit.prevent="addTask">
+    <input type="text" required v-model="taskTitle">
+  </form>
+  <div v-for="(value, key) in tasks" :key="key">
+    <div v-for="task in value" :key="task._id" v-if="task.listId == listData._id">
+      <task v-bind:taskData="task" />  
+    </div>
+  </div>
+</v-card>
 </template>
 
 <script>
@@ -60,8 +58,5 @@ export default {
 </script>
 
 <style scoped>
-.list {
-  color: black;
-  background-color: #485fb0;
-}
+
 </style>

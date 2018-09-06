@@ -1,17 +1,19 @@
 <template>
-<v-fluid class="board">
+<div class="board">
   <navbar />
   <form @submit.prevent="addList">
     <input type="text" required v-model="listTitle">
   </form>
-  <v-layout class="lists" v-for="list in lists" :key="list._id">
-    <list v-bind:listData="list" />
+  <v-layout v-for="list in lists" :key="list._id">
+    <v-flex d-flex justify-center sm4 row>
+      <list v-bind:listData="list" />
+    </v-flex>
   </v-layout>
-</v-fluid>
+</div>
 </template>
 
 <script>
-import Navbar from "@/components/Navbar"
+import Navbar from "@/components/Navbar";
 import List from "@/components/List";
 export default {
   name: "board",
@@ -58,10 +60,9 @@ export default {
 navbar {
   overflow-x: hidden;
 }
-.lists{
+/* .lists{
   display: flex;
   flex-flow: wrap row;
   justify-content: space-around;
-}
-
+} */
 </style>
