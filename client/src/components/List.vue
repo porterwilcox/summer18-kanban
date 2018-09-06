@@ -1,5 +1,6 @@
 <template>
-  <div class="card">
+  <!-- <drop @drop="setTargetId" class="card"> -->
+  <drop @drop="changeList" class="card">
     <h2>{{listData.title}}</h2>
     <button @click="deleteList">Delete</button>
     <form @submit.prevent="addTask">
@@ -7,10 +8,12 @@
     </form>
     <div v-for="(value, key) in tasks" :key="key">
       <div v-for="task in value" :key="task._id" v-if="task.listId == listData._id">
-        <task v-bind:taskData="task" />  
+        <task :taskData="task" :ref="task._id"/>
+        <!-- :targetListId="this.targetListId" -->
+        <!-- v-on:passTaskId="captureTaskId" -->
       </div>
     </div>
-  </div>
+  </drop>
 </template>
 
 <script>
@@ -49,6 +52,22 @@ export default {
         timestamp: Date.now()
       };
       this.$store.dispatch("addTask", obj);
+    },
+    // captureTaskId(taskId){
+    //   console.log(taskId)
+    //   this.targetTaskId = taskId
+    // },
+    setTargetId(data) {
+      console.log(data);
+      // this.$refs.data.changeList(this.listData._id)
+    },
+    changeList(data) {
+      let obj = {
+        listId: this.listData._id,
+        oldList: data.oldList,
+        taskId: data.taskId
+      };
+      this.$store.dispatch("changeList", obj);
     }
   },
   mounted() {
@@ -69,6 +88,6 @@ export default {
   background: rgba(0, 0, 0, 0.199);
   box-shadow: 1px 1px 2px #e7e7e7;
   border-radius: 4px;
-  margin: 0 .1%;
+  margin: 0 0.1%;
 }
 </style>

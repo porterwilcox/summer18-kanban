@@ -1,5 +1,7 @@
 <template>
-  <div class="task">
+  <!-- <drag :transfer-data="taskData._id" class="task"> -->
+  <drag :transfer-data="{taskId: taskData._id, oldList: taskData.listId}" class="task">
+    <!-- @dragend="passTargetTask" -->
     <h3>{{taskData.title}}</h3>
     <select @change="changeList">
       <option selected disabled>move to a new list</option>
@@ -24,19 +26,19 @@
       </div>
     </div>
     <button @click="deleteTask">delete task</button>
-  </div>
+  </drag>
 </template>
 
 <script>
-let moment = require('moment')
+let moment = require("moment");
 
 export default {
   name: "task",
-  props: ["taskData"],
+  props: ["taskData", "targetListId"],
   data() {
     return {
       showCommentForm: false,
-      commentDescription: ""
+      commentDescription: "",
     };
   },
   computed: {
@@ -74,21 +76,38 @@ export default {
       };
       this.$store.dispatch("deleteComment", obj);
     },
-    changeList(e){
+    changeList() {
       let obj = {
-        listId: e.target.value,
+        listId: this.targetListId,
         oldList: this.taskData.listId,
         taskId: this.taskData._id
-      }
-      this.$store.dispatch('changeList', obj)
-    }
+      };
+      this.$store.dispatch("changeList", obj);
+    },
+    // passTargetTask(transferData, nativeEvent) {
+    //   console.log(nativeEvent)
+    //   this.$emit("passTaskId", this.taskData._id);
+    // },
+    // initiateChange(transferData, nativeEvent) {
+    //   let obj = {
+    //     listId: this.listData._id,
+    //     oldList: this.oldListId,
+    //     taskId: this.taskId
+    //   };
+    //   this.$store.dispatch("changeList", obj);
+    // }
   },
   filters: {
-    timeFormat: function (date) {
-       if(moment(date).fromNow().includes('hours') && parseInt(moment(date).fromNow()) > 23){
-         return moment(date).format('ddd MMM Do, YYYY')
-       }
-       return moment(date).fromNow()
+    timeFormat: function(date) {
+      if (
+        moment(date)
+          .fromNow()
+          .includes("hours") &&
+        parseInt(moment(date).fromNow()) > 23
+      ) {
+        return moment(date).format("ddd MMM Do, YYYY");
+      }
+      return moment(date).fromNow();
     }
   },
   mounted() {
