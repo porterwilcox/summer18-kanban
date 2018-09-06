@@ -1,14 +1,13 @@
 <template>
   <div class="boards container-fluid">
     <navbar />
-    WELCOME TO THE BOARDS!!!
     <form @submit.prevent="addBoard">
       <input type="text" placeholder="title" v-model="newBoard.title" required>
       <input type="text" placeholder="description" v-model="newBoard.description">
       <button type="submit">Create Board</button>
     </form>
     <div v-for="board in boards" :key="board._id">
-      <router-link :to="{name: 'board', params: {boardId: board._id}}">{{board.title}}</router-link>
+      <router-link :to="{name: 'board', params: {boardId: board._id, description: board.description}}">{{board.title}}</router-link>
       <button @click="deleteBoard(board._id)">DELETE BOARD</button>
     </div>
   </div>

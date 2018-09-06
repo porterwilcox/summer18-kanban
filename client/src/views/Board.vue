@@ -1,6 +1,7 @@
 <template>
   <div class="board">
-    <navbar />
+    <navbar v-bind:description="this.description" />
+    <!-- v-bind:description="" -->
     <div class="container-fluid">
       <div class="row">
         <form @submit.prevent="addList">
@@ -25,12 +26,12 @@
       };
     },
     computed: {
-      theBoardId() {
-        return this.boardId;
-      },
       lists() {
         return this.$store.state.lists;
-      }
+      },
+    //   activeBoard(){
+    //     return this.$store.state.boards[this.boardId]
+    //   }
     },
     components: {
       List,
@@ -40,7 +41,7 @@
       addList() {
         let obj = {
           title: this.listTitle,
-          boardId: this.theBoardId
+          boardId: this.boardId
         };
         this.$store.dispatch("addList", obj);
       }
@@ -52,10 +53,10 @@
       }
     },
     mounted() {
-      this.$store.dispatch("getLists", this.theBoardId);
+      this.$store.dispatch("getLists", this.boardId);
     },
-    props: ["boardId"]
-  };
+    props: ["boardId", "description"],
+  }
 </script>
 
 <style>
