@@ -1,5 +1,7 @@
 <template>
   <div class="board">
+    <navbar />
+    
     <form @submit.prevent="addList">
       <input type="text" required v-model="listTitle">
     </form>
@@ -10,6 +12,7 @@
 </template>
 
 <script>
+import Navbar from "@/components/Navbar"
 import List from "@/components/List";
 export default {
   name: "board",
@@ -27,7 +30,8 @@ export default {
     }
   },
   components: {
-    List
+    List,
+    Navbar
   },
   methods: {
     addList() {

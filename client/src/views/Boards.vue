@@ -1,5 +1,6 @@
 <template>
   <div class="boards">
+    <navbar />
     WELCOME TO THE BOARDS!!!
     <form @submit.prevent="addBoard">
       <input type="text" placeholder="title" v-model="newBoard.title" required>
@@ -14,6 +15,8 @@
 </template>
 
 <script>
+import Navbar from "@/components/Navbar";
+
 export default {
   name: "boards",
   created() {
@@ -38,6 +41,9 @@ export default {
       return this.$store.state.boards;
     }
   },
+  components: {
+    Navbar
+  },
   methods: {
     addBoard() {
       this.$store.dispatch("addBoard", this.newBoard);
@@ -47,5 +53,6 @@ export default {
       this.$store.dispatch("deleteBoard", boardId);
     }
   }
+
 };
 </script>
