@@ -1,5 +1,5 @@
 <template>
-  <div class="boards">
+  <div class="boards container-fluid">
     <navbar />
     WELCOME TO THE BOARDS!!!
     <form @submit.prevent="addBoard">

@@ -1,5 +1,7 @@
 <template>
-  <div class="list">
+<div>
+
+  <div class="list col-sm-3 card">
     <h2>{{listData.title}}</h2>
     <button @click="deleteList">Delete</button>
     <form @submit.prevent="addTask">
@@ -11,6 +13,9 @@
       </div>
     </div>
   </div>
+  </div>
+  
+  
 </template>
 
 <script>
@@ -62,4 +67,16 @@ export default {
   color: black;
   background-color: #485fb0;
 }
+
+.card {
+    display: flex;
+    justify-content: space-evenly;
+    height: 100%;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.199);
+    padding: 30px;
+    box-shadow: 1px 1px 2px #e7e7e7;
+    border-radius: 4px;
+    margin: 20px 50px;
+  }
 </style>
