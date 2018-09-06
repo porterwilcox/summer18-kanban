@@ -3,16 +3,13 @@
     <navbar />
     <div class="container-fluid">
       <div class="row">
-
         <form @submit.prevent="addList">
           <input type="text" required v-model="listTitle">
         </form>
       </div>
-
-      <div v-for="list in lists" :key="list._id">
-        <list class="row listholder" v-bind:listData="list" />
+      <div class="listholder">
+        <list v-bind:listData="list" v-for="list in lists" :key="list._id" />
       </div>
-
     </div>
   </div>
 </template>
@@ -65,6 +62,6 @@
 .listholder{
   display: flex;
   flex-flow: wrap row;
-
+  justify-content: flex-start;
 }
 </style>

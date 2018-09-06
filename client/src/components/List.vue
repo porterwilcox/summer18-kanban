@@ -1,7 +1,5 @@
 <template>
-<div>
-
-  <div class="list col-sm-3 card">
+  <div class="card">
     <h2>{{listData.title}}</h2>
     <button @click="deleteList">Delete</button>
     <form @submit.prevent="addTask">
@@ -13,9 +11,6 @@
       </div>
     </div>
   </div>
-  </div>
-  
-  
 </template>
 
 <script>
@@ -51,7 +46,7 @@ export default {
       let obj = {
         title: this.taskTitle,
         listId: this.listData._id,
-        timestamp: Date.now() 
+        timestamp: Date.now()
       };
       this.$store.dispatch("addTask", obj);
     }
@@ -63,20 +58,17 @@ export default {
 </script>
 
 <style scoped>
-.list {
+.card {
   color: black;
   background-color: #485fb0;
+  width: 19vw;
+  display: flex;
+  justify-content: space-evenly;
+  height: 80vh;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.199);
+  box-shadow: 1px 1px 2px #e7e7e7;
+  border-radius: 4px;
+  margin: 0 .1%;
 }
-
-.card {
-    display: flex;
-    justify-content: space-evenly;
-    height: 100%;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.199);
-    padding: 30px;
-    box-shadow: 1px 1px 2px #e7e7e7;
-    border-radius: 4px;
-    margin: 20px 50px;
-  }
 </style>
