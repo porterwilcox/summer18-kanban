@@ -5,7 +5,7 @@
       <option selected disabled>move to a new list</option>
       <option v-for="(value, key) in lists" :key="key" :value="key" v-if="value._id != taskData.listId">{{value.title}}</option>
     </select>
-    <p>{{ taskData.timestamp | moment("ddd, h:mma") }}</p>
+    <p>{{ taskData.timestamp | timeFormat() }}</p>
     <div>
       <div v-if="!showCommentForm">
         <p @click="showCommentForm = !showCommentForm">add comment</p>
@@ -19,7 +19,7 @@
     <div v-for="(value, key) in comments" :key="key" class="comments">
       <div v-for="comment in value" :key="comment._id" v-if="comment.taskId == taskData._id">
         <h5>{{comment.description}}</h5>
-        <p>{{ comment.timestamp | moment("h:mma") }}</p>
+        <p>{{comment.timestamp | timeFormat}}</p>
         <button @click="deleteComment(comment._id)">Delete Comment</button>
       </div>
     </div>
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+let moment = require('moment')
+
 export default {
   name: "task",
   props: ["taskData"],
@@ -78,8 +80,15 @@ export default {
         oldList: this.taskData.listId,
         taskId: this.taskData._id
       }
-      console.log(obj)
       this.$store.dispatch('changeList', obj)
+    }
+  },
+  filters: {
+    timeFormat: function (date) {
+       if(moment(date).fromNow().includes('hours') && parseInt(moment(date).fromNow()) > 23){
+         return moment(date).format('ddd MMM Do, YYYY')
+       }
+       return moment(date).fromNow()
     }
   },
   mounted() {
