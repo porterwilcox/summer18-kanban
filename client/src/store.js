@@ -51,6 +51,11 @@ export default new Vuex.Store({
     },
     addCommentsToState(state, payload) {
       Vue.set(state.comments, payload.taskId, payload.comments)
+    },
+    logout(state){
+   state.user = {}
+    console.log(state.user)
+    router.push({name: 'login', path: "/login"})
     }
   },
   actions: {
@@ -75,6 +80,13 @@ export default new Vuex.Store({
           commit('setUser', res.data)
           router.push({ name: 'boards' })
         })
+    },
+    logout({commit, dispatch}){
+    auth.delete('logout')
+    .then(res => {
+      console.log(res)
+      commit('logout')
+    })
     },
 
     //BOARDS
