@@ -154,7 +154,6 @@ export default new Vuex.Store({
         })
     },
     changeList({ dispatch, commit }, obj) {
-      console.log(obj)
       api.put(`/tasks/${obj.taskId}`, obj)
         .then(() => {
           api.get(`/lists/${obj.listId}/tasks`)
