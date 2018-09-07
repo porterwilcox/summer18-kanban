@@ -1,19 +1,20 @@
 <template>
   <div class="boards container-fluid">
     <navbar />
-    <div class="addBoard">
-      <form v-if="createBoard" @submit.prevent="addBoard">
-        <input type="text" placeholder="title" v-model="newBoard.title" required>
-        <input type="text" placeholder="description" v-model="newBoard.description" required>
-        <button class="btn-primary" type="submit">Create Board</button>
-        <button @click="createBoard = !createBoard" class="btn-info">cancel</button>
-      </form>
-      <h2 v-else @click="createBoard = !createBoard">add a board</h2>
-    </div>
-    <div class="card" v-for="board in boards" :key="board._id">
-      <h2 @click="boardView(board._id, board.description)">{{board.title}}</h2>
-      <!-- <router-link class="r-link" :to="{name: 'board', params: {boardId: board._id, description: board.description}}"><h2>{{board.title}}</h2></router-link> -->
-      <button @click="deleteBoard(board._id)">DELETE BOARD</button>
+      <div class="boards-body">
+      <div class="addBoard">
+        <form v-if="createBoard" @submit.prevent="addBoard">
+          <input type="text" placeholder="title" v-model="newBoard.title" required>
+          <input type="text" placeholder="description" v-model="newBoard.description" required>
+          <button class="btn-primary" type="submit">Create Board</button>
+          <button @click="createBoard = !createBoard" class="btn-info">cancel</button>
+        </form>
+        <h2 v-else @click="createBoard = !createBoard">add a board</h2>
+      </div>
+      <div class="card" v-for="board in boards" :key="board._id">
+        <router-link class="r-link" :to="{name: 'board', params: {boardId: board._id, description: board.description}}">{{board.title}}</router-link>
+        <i @click="deleteBoard(board._id)" class="fas fa-trash-alt"></i>
+      </div>
     </div>
   </div>
 </template>
@@ -66,17 +67,28 @@ export default {
 </script>
 
 <style>
+.boards-body {
+  margin-top: 10vh;
+  height: 90vh;
+}
 .card {
   display: flex;
   flex-flow: wrap row;
   justify-content: space-between;
   height: 10vh;
-}
-.card * {
   width: fit-content;
 }
-router-link {
+.card a {
   font-size: 3rem;
+  color: #3b3b3b
+}
+.card a:hover {
+  text-decoration: none;
+  color: #838282  
+}
+.card i {
+  font-size: 3rem;
+  cursor: pointer;  
 }
 .addBoard h2 {
   cursor: pointer;
