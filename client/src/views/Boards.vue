@@ -1,13 +1,18 @@
 <template>
   <div class="boards container-fluid">
     <navbar />
-    <form @submit.prevent="addBoard">
-      <input type="text" placeholder="title" v-model="newBoard.title" required>
-      <input type="text" placeholder="description" v-model="newBoard.description">
-      <button type="submit">Create Board</button>
-    </form>
-    <div v-for="board in boards" :key="board._id">
-      <router-link :to="{name: 'board', params: {boardId: board._id, description: board.description}}">{{board.title}}</router-link>
+    <div class="addBoard">
+      <form v-if="createBoard" @submit.prevent="addBoard">
+        <input type="text" placeholder="title" v-model="newBoard.title" required>
+        <input type="text" placeholder="description" v-model="newBoard.description" required>
+        <button class="btn-primary" type="submit">Create Board</button>
+        <button @click="createBoard = !createBoard" class="btn-info">cancel</button>
+      </form>
+      <h2 v-else @click="createBoard = !createBoard">add a board</h2>
+    </div>
+    <div class="card" v-for="board in boards" :key="board._id">
+      <h2 @click="boardView(board._id, board.description)">{{board.title}}</h2>
+      <!-- <router-link class="r-link" :to="{name: 'board', params: {boardId: board._id, description: board.description}}"><h2>{{board.title}}</h2></router-link> -->
       <button @click="deleteBoard(board._id)">DELETE BOARD</button>
     </div>
   </div>
@@ -31,8 +36,9 @@ export default {
     return {
       newBoard: {
         title: "",
-        description: ""
-      }
+        description: "",
+      },
+      createBoard: false
     };
   },
   computed: {
@@ -44,6 +50,9 @@ export default {
     Navbar
   },
   methods: {
+    boardView(boardId, description){
+      router.push()
+    },
     addBoard() {
       this.$store.dispatch("addBoard", this.newBoard);
       this.newBoard = { title: "", description: "" };
@@ -55,3 +64,21 @@ export default {
 
 };
 </script>
+
+<style>
+.card {
+  display: flex;
+  flex-flow: wrap row;
+  justify-content: space-between;
+  height: 10vh;
+}
+.card * {
+  width: fit-content;
+}
+router-link {
+  font-size: 3rem;
+}
+.addBoard h2 {
+  cursor: pointer;
+}
+</style>

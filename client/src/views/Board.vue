@@ -59,7 +59,7 @@
   }
 </script>
 
-<style>
+<style scoped>
 .listholder{
   display: flex;
   flex-flow: wrap row;

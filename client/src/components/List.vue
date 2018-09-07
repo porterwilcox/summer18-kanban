@@ -8,7 +8,7 @@
     </form>
     <div v-for="(value, key) in tasks" :key="key">
       <div v-for="task in value" :key="task._id" v-if="task.listId == listData._id">
-        <task :taskData="task" :ref="task._id"/>
+        <task :taskData="task"/>
         <!-- :targetListId="this.targetListId" -->
         <!-- v-on:passTaskId="captureTaskId" -->
       </div>
