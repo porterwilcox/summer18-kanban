@@ -5,7 +5,7 @@
        <h3 v-if="!this.description">WELCOME TO TRILLO!!!</h3>
        <h3 v-else>{{this.description}}</h3>
    </div>
-   <button @click="logout">Sign Out</button>
+   <button class="btn-secondary" @click="logout">Sign Out</button>
     </div>
 </template>
 
@@ -23,9 +23,21 @@ export default {
 
 <style scoped>
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
   height: 10vh;
-  background-color: #afcfdf;
-  width: 100%;
+  opacity: .9;
+  background-color: rgba(0, 0, 0, 0.253);
+}
+a {
+  font-size: 3rem;
+  color: #3b3b3b;
+}
+a:hover {
+  text-decoration: none;
+  color: #3b3b3b; 
 }
 </style>
 

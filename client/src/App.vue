@@ -23,4 +23,16 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+button {
+  cursor: pointer;
+}
+:root {
+  --fresh: #4abdac;
+  --vermillion: #fc4a1a;
+  --sunshine: #f7b733;
+  --clean: #dfdce3;
+}
+body {
+  background-color: var(--fresh)
+}
 </style>
