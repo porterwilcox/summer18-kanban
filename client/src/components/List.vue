@@ -91,6 +91,6 @@ export default {
   /* background: rgba(0, 0, 0, 0.199); */
   box-shadow: 1px 1px 2px #e7e7e7;
   border-radius: 4px;
-  margin: 0 0.35%;
+  margin: 0 0.1%;
 }
 </style>
