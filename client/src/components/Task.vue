@@ -12,11 +12,19 @@
       </form>
     </div>
   </div>
-  <div v-for="(value, key) in comments" :key="key" class="comments">
-    <div v-for="comment in value" :key="comment._id" v-if="comment.taskId == taskData._id">
-      <h5>{{comment.description}}</h5>
-      <p>{{comment.timestamp | timeFormat}}</p>
-      <button @click="deleteComment(comment._id)">Delete Comment</button>
+  <div>
+    <div v-if="!showComment && Object.values(comments).length" @click="showComment = !showComment">
+      <p>show comments</p>
+    </div>
+    <div v-else>
+      <p @click="showComment = !showComment">close comments</p>
+      <div v-for="(value, key) in comments" :key="key" class="comments">
+        <div v-for="comment in value" :key="comment._id" v-if="comment.taskId == taskData._id">
+          <h5>{{comment.description}}</h5>
+          <p>{{comment.timestamp | timeFormat}}</p>
+          <button @click="deleteComment(comment._id)">Delete Comment</button>
+        </div>
+      </div>
     </div>
   </div>
   <button @click="deleteTask">delete task</button>
@@ -33,6 +41,7 @@ export default {
     return {
       showCommentForm: false,
       commentDescription: "",
+      showComment: false
     };
   },
   computed: {
