@@ -46,7 +46,6 @@
 
 
     </div>
-    </div>
 
     <i class="far fa-trash-alt trashcan" type="button" @click="deleteTask"></i>
   </drag>
