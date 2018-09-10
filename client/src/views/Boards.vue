@@ -4,7 +4,7 @@
     <div class="boards-body">
       <div class="the-boards">
         <div class="card board-card" v-for="board in boards" :key="board._id">
-          <router-link class="r-link" :to="{name: 'board', params: {boardId: board._id, description: board.description, title: board.title}}">{{board.title}}</router-link>
+          <router-link class="r-link" :to="{name: 'board', params: {boardId: board._id, description: board.description}}">{{board.title}}</router-link>
           <i @click="deleteBoard(board._id)" class="fas fa-trash-alt"></i>
         </div>
         <div v-if="boards.length < 20" class="addBoard">
@@ -80,11 +80,13 @@ export default {
   padding-left: 3vw;
   height: 85vh;
   background-color: #f8f9f9;
+  z-index: -1;
 }
 .the-boards {
   display: flex;
   flex-flow: wrap;
   justify-content: flex-start;
+  z-index: -1;
 }
 .board-card {
   display: flex;
@@ -96,6 +98,7 @@ export default {
   border-radius: 2%;
   box-shadow: 1px 1px 2px #e7e7e7;
   border-radius: 4px;
+  z-index: 0;
 }
 #add-card {
   background-color: #697c82;
