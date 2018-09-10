@@ -1,14 +1,13 @@
 <template>
   <drag :transfer-data="{taskId: taskData._id, oldList: taskData.listId}" class="task">
-    {{taskData._id}}
     <div class="task-details">
       <p class="task-title">{{taskData.title}}</p>
       <p class="task-timestamp">{{ taskData.timestamp | timeFormat }}</p>
     </div>
     <div class="task-buttons">
       <div class="comment-bubble">      
-        <i @click="actualTaskId = taskData._id" data-toggle="modal" data-target="#newModal" class="far fa-comment-dots"></i>
-        <div class="modal fade" id="newModal" tabindex="-1" role="dialog" aria-labelledby="newModalTitle" aria-hidden="true">
+        <i data-toggle="modal" :data-target="target" class="far fa-comment-dots"></i>
+        <div class="modal fade" :id="taskData._id" tabindex="-1" role="dialog" aria-labelledby="newModalTitle" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -18,12 +17,11 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form @submit.prevent="addComment">
+                <form @submit.prevent="addComment(taskData._id)">
                   <input placeholder="Add a comment" type="text" v-model="commentDescription" autofocus @focusout="showCommentForm = !showCommentForm">
                 </form>             
                 <div v-for="(value, key) in comments" :key="key" class="comments">
                   <div v-for="comment in value" :key="comment._id" v-if="comment.taskId == taskData._id">
-                    {{comment.taskId}}
                     <p class="commentD">{{comment.description}}</p>
                     <p>{{comment.timestamp | timeFormat}}</p>
                     <i class="far fa-trash-alt" type="button" @click="deleteComment(comment._id)"></i>
@@ -52,7 +50,7 @@
       return {
         showCommentForm: false,
         commentDescription: "",
-        actualTaskId: ''
+        target: '#' + this.taskData._id
       };
     },
     computed: {
@@ -73,10 +71,10 @@
           listId: this.taskData.listId
         });
       },
-      addComment() {
+      addComment(taskId) {
         let obj = {
           description: this.commentDescription,
-          taskId: this.taskData._id,
+          taskId: taskId,
           timestamp: Date.now()
         };
         console.log(obj)
