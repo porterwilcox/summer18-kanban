@@ -1,7 +1,7 @@
 <template>
 <drop @drop="changeList" class="card">
-  <h2>{{listData.title}}</h2>
-  <button @click="deleteList">Delete</button>
+  <p class="list-title">{{listData.title}}</p>
+  <i class="far fa-trash-alt" type="button" @click="deleteList"></i>
   <form @submit.prevent="addTask">
     <input type="text" required v-model="taskTitle">
   </form>
@@ -92,5 +92,8 @@ export default {
   box-shadow: 1px 1px 2px #e7e7e7;
   border-radius: 4px;
   margin: 0 0.1%;
+}
+.list-title{
+  font-size: 20px;
 }
 </style>
