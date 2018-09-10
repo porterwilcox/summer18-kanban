@@ -4,12 +4,12 @@
     <div class="boards-body">
       <div class="the-boards">
         <div class="card board-card" v-for="board in boards" :key="board._id">
-          <router-link class="r-link" :to="{name: 'board', params: {boardId: board._id, description: board.description}}">{{board.title}}</router-link>
+          <router-link class="r-link" :to="{name: 'board', params: {boardId: board._id, description: board.description, title: board.title}}">{{board.title}}</router-link>
           <i @click="deleteBoard(board._id)" class="fas fa-trash-alt"></i>
         </div>
         <div v-if="boards.length < 20" class="addBoard">
           <form class="board-card card" id="add-card" v-if="createBoard" @submit.prevent="addBoard">
-            <input type="text" placeholder="title" v-model="newBoard.title" required>
+            <input type="text" placeholder="title" v-model="newBoard.title" required autofocus>
             <input type="text" placeholder="description" v-model="newBoard.description" required>
             <button class="btn-primary" type="submit">Create Board</button>
             <button @click="createBoard = !createBoard" class="btn-info">cancel</button>
@@ -76,7 +76,9 @@ export default {
 }
 .boards-body {
   margin-top: 10vh;
-  height: 90vh;
+  padding-top: 2vh;
+  padding-left: 3vw;
+  height: 85vh;
   background-color: #f8f9f9;
 }
 .the-boards {
@@ -103,16 +105,20 @@ export default {
   font-size: 2rem;
   color: var(--sunshine);
 }
-
 #add-card p {
   font-size: 1.3rem;
   margin: 3% 0 0 5%;
+}
+#add-card button {
+  height: 4.5vh;
+  border-radius: 3%;
 }
 .card a {
   font-size: 1.3rem;
   font-weight: bold;
   color: #3b3b3b;
   margin: 3% 0 0 5%;
+  width: 100%;
 }
 .card a:hover {
   text-decoration: none;
@@ -132,6 +138,6 @@ export default {
 input, ::placeholder {
   background-color: transparent;
   color: #f8f9f9;
-  
+  width: 29.5vh;
 }
 </style>

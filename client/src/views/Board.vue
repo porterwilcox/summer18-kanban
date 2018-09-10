@@ -3,15 +3,15 @@
     <navbar v-bind:description="this.description" />
     <div class="board-body">
       <div class="container-fluid">
-        <div class="row">
+          <div class="spacer"></div>
+        <div class="row listholder">
+          <list v-bind:listData="list" v-for="list in lists" :key="list._id" />
           <form v-if="Object.keys(lists).length < 5" @submit.prevent="addList">
             <input type="text" required v-model="listTitle">
           </form>
-          <div v-else class="spacer"></div>
         </div>
-        <div class="listholder">
-          <list v-bind:listData="list" v-for="list in lists" :key="list._id" />
-        </div>
+        <!-- <div class="listholder"> -->
+        <!-- </div> -->
       </div>
     </div>
   </div>
