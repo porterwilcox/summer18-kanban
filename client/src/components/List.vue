@@ -1,13 +1,15 @@
 <template>
 <drop @drop="changeList" class="card">
-  <p class="list-title">{{listData.title}}</p>
-  <i class="far fa-trash-alt" type="button" @click="deleteList"></i>
+  <h3>{{listData.title}}</h3>
+  <i class="far fa-trash-alt" @click="deleteList"></i>
   <form @submit.prevent="addTask">
-    <input type="text" required v-model="taskTitle">
+    <input type="text" required v-model="taskTitle" placeholder="add a task" maxlength="40">
   </form>
-  <div v-for="(value, key) in tasks" :key="key">
-    <div v-for="task in value" :key="task._id" v-if="task.listId == listData._id">
-      <task :taskData="task"/>
+  <div class="task-container">
+    <div v-for="(value, key) in tasks" :key="key">
+      <div v-for="task in value" :key="task._id" v-if="task.listId == listData._id">
+        <task :taskData="task"/>
+      </div>
     </div>
   </div>
 </drop>
@@ -49,14 +51,7 @@ export default {
         timestamp: Date.now()
       };
       this.$store.dispatch("addTask", obj);
-    },
-    // captureTaskId(taskId){
-    //   console.log(taskId)
-    //   this.targetTaskId = taskId
-    // },
-    setTargetId(data) {
-      console.log(data);
-      // this.$refs.data.changeList(this.listData._id)
+      this.taskTitle = ''
     },
     changeList(data) {
       let obj = {
@@ -92,8 +87,30 @@ export default {
   box-shadow: 1px 1px 2px #e7e7e7;
   border-radius: 4px;
   margin: 0 0.1%;
+  position: relative;
 }
-.list-title{
-  font-size: 20px;
+.task-container {
+  margin-top: 80px; 
+  height: 70vh;
+  overflow-y: scroll;
+}
+.task-container::-webkit-scrollbar {
+  display: none;
+}
+h3 {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  border-bottom: 1px solid black;
+}
+i {
+  position: absolute;
+  top: 0;
+  right: 5px;
+}
+form {
+  position: absolute;
+  top: 50px;
+  width: 100%;
 }
 </style>
