@@ -30,6 +30,9 @@ export default new Vuex.Store({
     setUser(state, user) {
       state.user = user
     },
+    updateUser(state, name) {
+      state.user.name = name;
+    },
     setBoards(state, boards) {
       state.boards = boards
     },
@@ -87,6 +90,20 @@ export default new Vuex.Store({
       console.log(res)
       commit('logout')
     })
+    },
+    updateUser({commit, dispatch}, payload){
+      auth.put(`user/${payload.userId}`, payload)
+        .then(res => {
+          console.log(res)
+          commit('updateUser', payload.name)
+        })
+    },
+    deleteAccount({commit, dispatch}, userId){
+      auth.delete(`delete/${userId}`)
+        .then(res => {
+          console.log(res)
+          router.push({name: 'login'})
+        })
     },
 
     //BOARDS

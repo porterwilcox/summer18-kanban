@@ -98,6 +98,18 @@ router.get('/auth/authenticate', (req, res) => {
     })
 })
 
+//Change user details
+router.put(`/auth/user/:id`, (req, res, next) => {
+  Users.findByIdAndUpdate(req.params.id, req.body)
+    .then(() => res.send({
+      message: 'user updated'
+    }))
+    .catch(err => {
+      console.log(err)
+      next()
+    })
+})
+
 
 module.exports = {
   router,
