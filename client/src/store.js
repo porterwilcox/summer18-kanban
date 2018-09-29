@@ -6,7 +6,7 @@ import router from './router'
 Vue.use(Vuex)
 
 var production = !window.location.host.includes('localhost');
-var baseUrl = production ? '//kanban.herokuapp.com/' : '//localhost:3000/';
+var baseUrl = production ? '//trillo-kanban.herokuapp.com/' : '//localhost:3000/';
 let auth = Axios.create({
   baseURL: baseUrl + "auth/",
   timeout: 3000,
